@@ -109,7 +109,7 @@ impl Default for FrameworkContainer {
 pub struct FrameworkDetector<'a> {
     tags: BTreeMap<&'a str, bool>,
 
-    pub frameworks: FrameworkContainer,
+    pub container: FrameworkContainer,
     pub facets: Vec<Box<Facet>>,
 }
 
@@ -117,7 +117,7 @@ impl<'a> Default for FrameworkDetector<'a> {
     fn default() -> Self {
         FrameworkDetector {
             tags: BTreeMap::default(),
-            frameworks: FrameworkContainer::default(),
+            container: FrameworkContainer::default(),
             facets: vec![],
         }
     }
@@ -164,7 +164,7 @@ impl<'a> FrameworkDetector<'a> {
     }
 
     fn add_frameworks(&mut self, detectors: &mut LangDetectors<'a>) {
-        self.frameworks.append(&detectors.frameworks);
+        self.container.append(&detectors.frameworks);
     }
 }
 
@@ -259,7 +259,7 @@ mod tests {
     #[test]
     fn should_detect_jvm_frameworks() {
         let detector = build_test_detector(vec!["_fixtures", "projects", "jvm"]);
-        let frameworks = detector.frameworks;
+        let frameworks = detector.container;
 
         let framework = frameworks.get(0).unwrap();
         let name = framework.name.to_string();

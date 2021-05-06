@@ -18,7 +18,7 @@ pub struct Framework {
 }
 
 #[derive(Serialize)]
-struct SourceFile {
+pub struct SourceFile {
     file_path: String,
     language: String,
 }
@@ -122,14 +122,14 @@ impl<'a> Default for FrameworkDetector<'a> {
 
 impl<'a> FrameworkDetector<'a> {
     pub fn run<P: AsRef<Path>>(&mut self, path: P) {
-        let mut lang_detectors = FrameworkDetector::detect(&path);
+        let mut lang_detectors = FrameworkDetector::detect_languages(&path);
 
         self.add_tags(&mut lang_detectors);
         self.add_frameworks(&mut lang_detectors);
         self.add_facets();
     }
 
-    fn detect<P: AsRef<Path>>(path: P) -> LangDetectors<'a> {
+    fn detect_languages<P: AsRef<Path>>(path: P) -> LangDetectors<'a> {
         let mut lang_detectors = LangDetectors::default();
         lang_detectors.detect(&path);
         lang_detectors

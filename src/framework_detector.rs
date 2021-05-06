@@ -4,7 +4,7 @@ use std::cell::RefCell;
 use std::collections::{BTreeMap, HashSet};
 use std::path::{Path};
 
-#[derive(Serialize, PartialEq, Debug, Clone)]
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct Framework {
     pub name: String,
     pub path: String,
@@ -17,7 +17,7 @@ pub struct Framework {
     pub languages: RefCell<HashSet<String>>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct SourceFile {
     file_path: String,
     language: String,

@@ -1,13 +1,13 @@
 [package]
 name = "framework"
 version = "0.2.0"
-authors = ["Phodal Huang <h@phodal.com>"]
+authors = ["group@inherd.org"]
 edition = "2018"
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/phodal/coco"
-documentation = "https://github.com/phodal/coco"
-homepage = "https://github.com/phodal/coco"
+repository = "https://github.com/inherd/framework-rs"
+documentation = "https://github.com/inherd/framework-rs"
+homepage = "https://github.com/inherd/framework-rs"
 description = """
 Framework is a detector for different frameworks in one projects
 """

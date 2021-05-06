@@ -157,10 +157,7 @@ mod tests {
     use std::path::PathBuf;
 
     fn build_test_detector<'a>(project_path: Vec<&str>) -> FrameworkDetector<'a> {
-        let root_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-            .parent()
-            .unwrap()
-            .to_path_buf();
+        let root_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         let mut test_project_dir = root_dir.clone();
 
         for path in project_path.into_iter() {

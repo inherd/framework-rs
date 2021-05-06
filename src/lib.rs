@@ -20,3 +20,4 @@ pub mod dependency;
 pub mod facet;
 pub mod framework_detector;
 pub mod lang;
+pub mod frameworks;

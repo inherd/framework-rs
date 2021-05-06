@@ -3,6 +3,7 @@ use crate::lang::LangDetectors;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, HashSet};
 use std::path::{Path};
+use crate::frameworks::Frameworks;
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct Framework {
@@ -137,6 +138,13 @@ impl<'a> FrameworkDetector<'a> {
         let mut detector = FrameworkDetector::default();
         detector.run(path);
         detector
+    }
+
+    pub fn build(&self) -> Frameworks {
+        Frameworks {
+            frameworks: self.container.entries.borrow().to_vec(),
+            // facet: self.facets.to_vec()
+        }
     }
 
     fn run<P: AsRef<Path>>(&mut self, path: P) {
@@ -281,5 +289,13 @@ mod tests {
         assert_eq!(files.contains("pom.xml"), true);
         assert_eq!(languages.contains("Java"), true);
         assert_eq!(languages.contains("Kotlin"), true);
+    }
+
+    #[test]
+    fn should_build_frameworks() {
+        let detector = build_test_detector(vec!["_fixtures", "projects", "jvm"]);
+        let frameworks = detector.build();
+
+        assert_eq!(2, frameworks.frameworks.len());
     }
 }

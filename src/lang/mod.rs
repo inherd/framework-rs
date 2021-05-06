@@ -17,8 +17,9 @@ struct LangDetector<'a> {
 }
 
 pub struct LangDetectors<'a> {
-    pub tags: BTreeMap<&'a str, bool>,
     pub frameworks: Frameworks,
+
+    tags: BTreeMap<&'a str, bool>,
     detectors: Vec<LangDetector<'a>>,
 }
 
@@ -28,19 +29,19 @@ impl<'a> Default for LangDetectors<'a> {
             tags: BTreeMap::default(),
             detectors: vec![
                 LangDetector {
-                    tagging: jvm::get_tag,
+                    tagging: jvm::tagging,
                     framework_analysis: jvm::framework_analysis,
                 },
                 LangDetector {
-                    tagging: js::get_tag,
+                    tagging: js::tagging,
                     framework_analysis: js::framework_analysis,
                 },
                 LangDetector {
-                    tagging: go::get_tag,
+                    tagging: go::tagging,
                     framework_analysis: go::framework_analysis,
                 },
                 LangDetector {
-                    tagging: rust::get_tag,
+                    tagging: rust::tagging,
                     framework_analysis: rust::framework_analysis,
                 },
             ],

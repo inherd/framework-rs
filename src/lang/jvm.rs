@@ -49,7 +49,7 @@ pub fn is_scala_source_file(path: &str) -> bool {
     return SCALA_SOURCE_TEST.is_match(path);
 }
 
-pub fn get_tag<'a>(entry: &DirEntry) -> Option<&'a str> {
+pub fn tagging<'a>(entry: &DirEntry) -> Option<&'a str> {
     let file_name = entry.file_name().to_str().unwrap();
     let build_tool_tag = get_build_tool_tag(file_name);
     if !build_tool_tag.is_none() {

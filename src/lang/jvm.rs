@@ -1,4 +1,4 @@
-use crate::framework_detector::{Framework, Frameworks};
+use crate::framework_detector::{Framework, FrameworkContainer};
 use regex::Regex;
 use std::cell::RefCell;
 use walkdir::DirEntry;
@@ -58,7 +58,7 @@ pub fn tagging<'a>(entry: &DirEntry) -> Option<&'a str> {
     get_source_tag(file_name)
 }
 
-pub fn framework_analysis(entry: &DirEntry, frameworks: &Frameworks) {
+pub fn framework_analysis(entry: &DirEntry, frameworks: &FrameworkContainer) {
     let file_name = entry.file_name().to_str().unwrap();
     let parent_path = entry.path().parent().unwrap().to_str().unwrap();
 

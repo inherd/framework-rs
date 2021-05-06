@@ -12,7 +12,7 @@ extern crate regex;
 extern crate serde;
 
 pub use framework_detector::FrameworkDetector;
-pub use framework_detector::Frameworks;
+pub use framework_detector::FrameworkContainer;
 pub use framework_detector::Framework;
 pub use framework_detector::SourceFile;
 

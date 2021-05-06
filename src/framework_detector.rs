@@ -24,14 +24,14 @@ pub struct SourceFile {
 }
 
 #[derive(Serialize)]
-pub struct Frameworks {
+pub struct FrameworkContainer {
     entries: RefCell<Vec<Framework>>,
 
     #[serde(skip_serializing)]
     temp_source_files: RefCell<Vec<SourceFile>>,
 }
 
-impl Frameworks {
+impl FrameworkContainer {
     /// add framework to project
     pub fn add_framework(&self, framework: Framework) {
         if !self.entries.borrow().contains(&framework) {
@@ -43,7 +43,7 @@ impl Frameworks {
     fn associate_with_source_files(&self, framework: &Framework) {
         for temp_source_file in self.temp_source_files.borrow().iter() {
             if temp_source_file.file_path.starts_with(&framework.path) {
-                Frameworks::add_language_to_framework(temp_source_file.language.clone(), framework)
+                FrameworkContainer::add_language_to_framework(temp_source_file.language.clone(), framework)
             }
         }
     }
@@ -56,7 +56,7 @@ impl Frameworks {
     fn add_language_to_frameworks(&self, file_path: &str, language: &str) {
         for framework in self.entries.borrow_mut().iter() {
             if file_path.starts_with(&framework.path) {
-                Frameworks::add_language_to_framework(language.to_string(), framework);
+                FrameworkContainer::add_language_to_framework(language.to_string(), framework);
             }
         }
     }
@@ -72,7 +72,7 @@ impl Frameworks {
         });
     }
 
-    pub fn append(&self, frameworks: &Frameworks) {
+    pub fn append(&self, frameworks: &FrameworkContainer) {
         self.entries
             .borrow_mut()
             .append(&mut frameworks.entries.borrow_mut())
@@ -95,9 +95,9 @@ impl Frameworks {
     }
 }
 
-impl Default for Frameworks {
+impl Default for FrameworkContainer {
     fn default() -> Self {
-        Frameworks {
+        FrameworkContainer {
             entries: RefCell::new(vec![]),
             temp_source_files: RefCell::new(vec![]),
         }
@@ -109,7 +109,7 @@ impl Default for Frameworks {
 pub struct FrameworkDetector<'a> {
     tags: BTreeMap<&'a str, bool>,
 
-    pub frameworks: Frameworks,
+    pub frameworks: FrameworkContainer,
     pub facets: Vec<Box<Facet>>,
 }
 
@@ -117,7 +117,7 @@ impl<'a> Default for FrameworkDetector<'a> {
     fn default() -> Self {
         FrameworkDetector {
             tags: BTreeMap::default(),
-            frameworks: Frameworks::default(),
+            frameworks: FrameworkContainer::default(),
             facets: vec![],
         }
     }

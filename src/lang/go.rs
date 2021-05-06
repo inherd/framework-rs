@@ -1,4 +1,4 @@
-use crate::framework_detector::Frameworks;
+use crate::framework_detector::FrameworkContainer;
 use walkdir::DirEntry;
 
 pub fn tagging<'a>(entry: &DirEntry) -> Option<&'a str> {
@@ -9,4 +9,4 @@ pub fn tagging<'a>(entry: &DirEntry) -> Option<&'a str> {
     }
 }
 
-pub fn framework_analysis(_entry: &DirEntry, _frameworks: &Frameworks) {}
+pub fn framework_analysis(_entry: &DirEntry, _frameworks: &FrameworkContainer) {}

@@ -1,4 +1,4 @@
-use crate::framework_detector::Frameworks;
+use crate::framework_detector::FrameworkContainer;
 use std::collections::BTreeMap;
 use std::path::Path;
 use walkdir::{DirEntry, WalkDir};
@@ -9,7 +9,7 @@ pub mod jvm;
 pub mod rust;
 
 type TaggingAction<'a> = fn(dir: &DirEntry) -> Option<&'a str>;
-type FrameworkAnalysisAction = fn(dir: &DirEntry, frameworks: &Frameworks);
+type FrameworkAnalysisAction = fn(dir: &DirEntry, frameworks: &FrameworkContainer);
 
 struct LangDetector<'a> {
     tagging: TaggingAction<'a>,
@@ -17,7 +17,7 @@ struct LangDetector<'a> {
 }
 
 pub struct LangDetectors<'a> {
-    pub frameworks: Frameworks,
+    pub frameworks: FrameworkContainer,
 
     pub(crate) tags: BTreeMap<&'a str, bool>,
     detectors: Vec<LangDetector<'a>>,
@@ -45,7 +45,7 @@ impl<'a> Default for LangDetectors<'a> {
                     framework_analysis: rust::framework_analysis,
                 },
             ],
-            frameworks: Frameworks::default(),
+            frameworks: FrameworkContainer::default(),
         }
     }
 }

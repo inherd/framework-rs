@@ -2,9 +2,11 @@
 
 > Framework is a detector for different frameworks in one projects
 
+[![crates.io](https://meritbadge.herokuapp.com/framework)](https://crates.io/crates/framework)
+[![docs.rs](https://docs.rs/framework/badge.svg)](https://docs.rs/framework/)
+[![license](https://img.shields.io/crates/l/framework)](https://github.com/inherd/framework/blob/master/LICENSE)
+
 License
 ---
 
-[![Phodal's Idea](http://brand.phodal.com/shields/idea-small.svg)](http://ideas.phodal.com/)
-
-@ 2020~2021 A [Phodal Huang](https://www.phodal.com)'s [Idea](http://github.com/phodal/ideas).  This code is distributed under the MPL license. See `LICENSE` in this directory.
+@ 2020~2021  This code is distributed under the MPL license. See `LICENSE` in this directory.

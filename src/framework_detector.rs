@@ -104,6 +104,7 @@ impl Default for Frameworks {
     }
 }
 
+/// Framework Detector
 #[derive(Serialize)]
 pub struct FrameworkDetector<'a> {
     pub tags: BTreeMap<&'a str, bool>,
@@ -123,6 +124,14 @@ impl<'a> Default for FrameworkDetector<'a> {
 
 impl<'a> FrameworkDetector<'a> {
     /// return frameworks info os api
+    ///
+    /// Examples
+    ///
+    /// ```
+    /// use framework::FrameworkDetector;
+    ///
+    /// FrameworkDetector::detect("path");
+    /// ```
     pub fn detect<P: AsRef<Path>>(path: P) -> FrameworkDetector<'a> {
         let mut detector = FrameworkDetector::default();
         detector.run(path);

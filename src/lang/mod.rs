@@ -19,7 +19,7 @@ struct LangDetector<'a> {
 pub struct LangDetectors<'a> {
     pub frameworks: Frameworks,
 
-    tags: BTreeMap<&'a str, bool>,
+    pub(crate) tags: BTreeMap<&'a str, bool>,
     detectors: Vec<LangDetector<'a>>,
 }
 

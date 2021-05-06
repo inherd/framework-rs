@@ -107,7 +107,8 @@ impl Default for Frameworks {
 /// Framework Detector
 #[derive(Serialize)]
 pub struct FrameworkDetector<'a> {
-    pub tags: BTreeMap<&'a str, bool>,
+    tags: BTreeMap<&'a str, bool>,
+
     pub frameworks: Frameworks,
     pub facets: Vec<Box<Facet>>,
 }
@@ -141,7 +142,7 @@ impl<'a> FrameworkDetector<'a> {
     fn run<P: AsRef<Path>>(&mut self, path: P) {
         let mut lang_detectors = FrameworkDetector::detect_languages(&path);
 
-        self.add_tags(&mut lang_detectors);
+        self.add_language_tags(&mut lang_detectors);
         self.add_frameworks(&mut lang_detectors);
         self.add_facets();
     }
@@ -152,7 +153,7 @@ impl<'a> FrameworkDetector<'a> {
         lang_detectors
     }
 
-    fn add_tags(&mut self, detectors: &mut LangDetectors<'a>) {
+    fn add_language_tags(&mut self, detectors: &mut LangDetectors<'a>) {
         self.tags.append(&mut detectors.tags);
     }
 

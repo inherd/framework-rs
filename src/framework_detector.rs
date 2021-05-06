@@ -2,7 +2,7 @@ use crate::facet::{Facet, FacetsBuilder};
 use crate::lang::LangDetectors;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, HashSet};
-use std::path::Path;
+use std::path::{Path};
 
 #[derive(Serialize, PartialEq, Debug, Clone)]
 pub struct Framework {
@@ -32,6 +32,7 @@ pub struct Frameworks {
 }
 
 impl Frameworks {
+    /// add framework to project
     pub fn add_framework(&self, framework: Framework) {
         if !self.entries.borrow().contains(&framework) {
             self.associate_with_source_files(&framework);
@@ -121,7 +122,14 @@ impl<'a> Default for FrameworkDetector<'a> {
 }
 
 impl<'a> FrameworkDetector<'a> {
-    pub fn run<P: AsRef<Path>>(&mut self, path: P) {
+    /// return frameworks info os api
+    pub fn detect<P: AsRef<Path>>(path: P) -> FrameworkDetector<'a> {
+        let mut detector = FrameworkDetector::default();
+        detector.run(path);
+        detector
+    }
+
+    fn run<P: AsRef<Path>>(&mut self, path: P) {
         let mut lang_detectors = FrameworkDetector::detect_languages(&path);
 
         self.add_tags(&mut lang_detectors);
@@ -164,8 +172,7 @@ mod tests {
             test_project_dir.push(path);
         }
 
-        let mut detector = FrameworkDetector::default();
-        detector.run(test_project_dir.display().to_string());
+        let detector = FrameworkDetector::detect(test_project_dir);
         detector
     }
 

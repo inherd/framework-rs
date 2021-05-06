@@ -6,6 +6,14 @@
 [![docs.rs](https://docs.rs/framework/badge.svg)](https://docs.rs/framework/)
 [![license](https://img.shields.io/crates/l/framework)](https://github.com/inherd/framework/blob/master/LICENSE)
 
+## Usage
+
+```rust
+use framework::FrameworkDetector;
+
+FrameworkDetector::detect("path");
+```
+
 License
 ---
 

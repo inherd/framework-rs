@@ -143,7 +143,7 @@ impl<'a> FrameworkDetector<'a> {
     pub fn build(&self) -> Frameworks {
         Frameworks {
             frameworks: self.container.entries.borrow().to_vec(),
-            // facet: self.facets.to_vec()
+            facet: self.facets.iter().map(|s| serde_json::to_value(s).unwrap()).collect()
         }
     }
 

@@ -6,6 +6,7 @@ use crate::DetectFramework;
 pub struct Framework {
     pub name: String,
     pub path: String,
+    pub relative: String,
     pub files: HashSet<String>,
     pub languages: HashSet<String>,
 }
@@ -19,6 +20,7 @@ impl Framework {
         Framework {
             name: fw.name.clone(),
             path: fw.path.clone(),
+            relative: "".to_string(),
             files: files_set,
             languages: languages_set
         }

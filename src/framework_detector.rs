@@ -9,6 +9,7 @@ use crate::frameworks::{Frameworks, Framework};
 pub struct DetectFramework {
     pub name: String,
     pub path: String,
+    pub relative: String,
     // in some languages has different framework file
     // |   languages |   files    |
     // |-------------|------------|

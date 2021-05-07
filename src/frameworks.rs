@@ -1,5 +1,7 @@
-use serde_json::Value;
 use std::collections::HashSet;
+
+use serde_json::Value;
+
 use crate::DetectFramework;
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
@@ -22,7 +24,7 @@ impl Framework {
             path: fw.path.clone(),
             relative: "".to_string(),
             files: files_set,
-            languages: languages_set
+            languages: languages_set,
         }
     }
 }
@@ -30,5 +32,5 @@ impl Framework {
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Frameworks {
     pub frameworks: Vec<Framework>,
-    pub facets: Vec<Value>
+    pub facets: Vec<Value>,
 }

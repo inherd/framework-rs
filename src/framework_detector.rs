@@ -1,9 +1,9 @@
 use crate::facet::{Facet, FacetsBuilder};
+use crate::frameworks::{Framework, Frameworks};
 use crate::lang::LangDetectors;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, HashSet};
-use std::path::{Path};
-use crate::frameworks::{Frameworks, Framework};
+use std::path::Path;
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct DetectFramework {
@@ -45,7 +45,10 @@ impl FrameworkContainer {
     fn associate_with_source_files(&self, framework: &DetectFramework) {
         for temp_source_file in self.temp_source_files.borrow().iter() {
             if temp_source_file.file_path.starts_with(&framework.path) {
-                FrameworkContainer::add_language_to_framework(temp_source_file.language.clone(), framework)
+                FrameworkContainer::add_language_to_framework(
+                    temp_source_file.language.clone(),
+                    framework,
+                )
             }
         }
     }
@@ -142,19 +145,21 @@ impl<'a> FrameworkDetector<'a> {
     }
 
     pub fn build(&self) -> Frameworks {
-        let frameworks = self.container.entries.borrow()
+        let frameworks = self
+            .container
+            .entries
+            .borrow()
             .to_vec()
             .iter()
             .map(|fw| Framework::from(fw))
             .collect();
-        let facets = self.facets.iter()
+        let facets = self
+            .facets
+            .iter()
             .map(|s| serde_json::to_value(s).unwrap())
             .collect();
 
-        Frameworks {
-            frameworks,
-            facets
-        }
+        Frameworks { frameworks, facets }
     }
 
     fn run<P: AsRef<Path>>(&mut self, path: P) {
@@ -249,6 +254,8 @@ mod tests {
     fn should_detect_npm_project() {
         let detector = build_test_detector(vec!["_fixtures", "projects", "js", "npmproject"]);
 
+        let frameworks = detector.build();
+        println!("{:?}", frameworks);
         assert_eq!(&true, detector.tags.get("workspace.npm").unwrap());
     }
 

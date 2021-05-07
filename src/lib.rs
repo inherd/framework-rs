@@ -13,7 +13,7 @@ extern crate serde;
 
 pub use framework_detector::FrameworkDetector;
 pub use framework_detector::FrameworkContainer;
-pub use framework_detector::Framework;
+pub use framework_detector::DetectFramework;
 pub use framework_detector::SourceFile;
 
 pub mod dependency;

@@ -6,7 +6,7 @@ use std::path::{Path};
 use crate::frameworks::Frameworks;
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
-pub struct Framework {
+pub struct DetectFramework {
     pub name: String,
     pub path: String,
     // in some languages has different framework file
@@ -26,7 +26,7 @@ pub struct SourceFile {
 
 #[derive(Serialize)]
 pub struct FrameworkContainer {
-    entries: RefCell<Vec<Framework>>,
+    entries: RefCell<Vec<DetectFramework>>,
 
     #[serde(skip_serializing)]
     temp_source_files: RefCell<Vec<SourceFile>>,
@@ -34,14 +34,14 @@ pub struct FrameworkContainer {
 
 impl FrameworkContainer {
     /// add framework to project
-    pub fn add_framework(&self, framework: Framework) {
+    pub fn add_framework(&self, framework: DetectFramework) {
         if !self.entries.borrow().contains(&framework) {
             self.associate_with_source_files(&framework);
             self.entries.borrow_mut().push(framework);
         }
     }
 
-    fn associate_with_source_files(&self, framework: &Framework) {
+    fn associate_with_source_files(&self, framework: &DetectFramework) {
         for temp_source_file in self.temp_source_files.borrow().iter() {
             if temp_source_file.file_path.starts_with(&framework.path) {
                 FrameworkContainer::add_language_to_framework(temp_source_file.language.clone(), framework)
@@ -62,7 +62,7 @@ impl FrameworkContainer {
         }
     }
 
-    fn add_language_to_framework(language: String, framework: &Framework) {
+    fn add_language_to_framework(language: String, framework: &DetectFramework) {
         framework.languages.borrow_mut().insert(language);
     }
 
@@ -87,7 +87,7 @@ impl FrameworkContainer {
         }
     }
 
-    pub fn get(&self, index: usize) -> Option<Framework> {
+    pub fn get(&self, index: usize) -> Option<DetectFramework> {
         let frameworks = self.entries.borrow();
         match frameworks.get(index) {
             Some(framework) => Some(framework.clone()),

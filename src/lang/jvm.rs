@@ -1,4 +1,4 @@
-use crate::framework_detector::{Framework, FrameworkContainer};
+use crate::framework_detector::{DetectFramework, FrameworkContainer};
 use regex::Regex;
 use std::cell::RefCell;
 use walkdir::DirEntry;
@@ -63,7 +63,7 @@ pub fn framework_analysis(entry: &DirEntry, frameworks: &FrameworkContainer) {
     let parent_path = entry.path().parent().unwrap().to_str().unwrap();
 
     if is_build_file(file_name) {
-        frameworks.add_framework(Framework {
+        frameworks.add_framework(DetectFramework {
             name: ident_framework_name(file_name).to_string(),
             path: entry.path().parent().unwrap().to_str().unwrap().to_string(),
             files: RefCell::new(hashset! {file_name.to_string()}),

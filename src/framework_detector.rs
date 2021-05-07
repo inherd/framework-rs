@@ -3,7 +3,7 @@ use crate::lang::LangDetectors;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, HashSet};
 use std::path::{Path};
-use crate::frameworks::Frameworks;
+use crate::frameworks::{Frameworks, Framework};
 
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
 pub struct DetectFramework {
@@ -108,7 +108,7 @@ impl Default for FrameworkContainer {
 /// Framework Detector
 #[derive(Serialize)]
 pub struct FrameworkDetector<'a> {
-    tags: BTreeMap<&'a str, bool>,
+    pub(crate) tags: BTreeMap<&'a str, bool>,
 
     pub container: FrameworkContainer,
     pub facets: Vec<Box<Facet>>,
@@ -141,9 +141,18 @@ impl<'a> FrameworkDetector<'a> {
     }
 
     pub fn build(&self) -> Frameworks {
+        let frameworks = self.container.entries.borrow()
+            .to_vec()
+            .iter()
+            .map(|fw| Framework::from(fw))
+            .collect();
+        let facets = self.facets.iter()
+            .map(|s| serde_json::to_value(s).unwrap())
+            .collect();
+
         Frameworks {
-            frameworks: self.container.entries.borrow().to_vec(),
-            facet: self.facets.iter().map(|s| serde_json::to_value(s).unwrap()).collect()
+            frameworks,
+            facets
         }
     }
 

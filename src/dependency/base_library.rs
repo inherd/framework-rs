@@ -1,5 +1,5 @@
 #[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
-pub struct BaseLibrary {
+pub struct Library {
     pub name: String,
     pub version: String,
     pub group: String,
@@ -12,7 +12,7 @@ pub enum LibraryScope {
     Test,
 }
 
-impl BaseLibrary {
+impl Library {
     pub fn is_dev(&self) -> bool {
         return self.scope == "Test";
     }
@@ -20,11 +20,11 @@ impl BaseLibrary {
 
 #[cfg(test)]
 mod tests {
-    use crate::dependency::base_library::BaseLibrary;
+    use crate::dependency::base_library::Library;
 
     #[test]
     fn should_be_dev_when_scope_dev() {
-        let base_library = BaseLibrary {
+        let base_library = Library {
             name: "some".to_string(),
             version: "0.1.1".to_string(),
             group: "".to_string(),

@@ -35,3 +35,12 @@ mod tests {
         assert!(base_library.is_dev());
     }
 }
+
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
+pub struct LibraryDependency {}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
+pub struct ModuleDependency {}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
+pub struct ProjectDependency {}

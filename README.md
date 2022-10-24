@@ -17,4 +17,4 @@ FrameworkDetector::detect("path");
 License
 ---
 
-@ 2020~2021  This code is distributed under the MPL license. See `LICENSE` in this directory.
+@ 2020~2022  This code is distributed under the MPL license. See `LICENSE` in this directory.
